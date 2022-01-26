@@ -26,7 +26,7 @@
             "preLaunchTask": "g++ build for debug"
         },
         {
-            "name": "SPATIUM - build and debug",
+            "name": "SPATIUM - build and release",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\SPATIUM_Debug.exe",
@@ -44,7 +44,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ build for debug"
+            "preLaunchTask": "g++ build for release"
         }
     ]
 }

@@ -1,0 +1,70 @@
+#include "Shader.h"
+#include <GL/glew.h>
+
+#include "Debug.h"
+
+Shader::Shader()
+{
+    m_RendererID = CreateShader(m_VertexShader, m_FragmentShader);
+}
+
+Shader::~Shader()
+{
+    GLCall(glDeleteProgram(m_RendererID));
+}
+
+unsigned int Shader::CompileShader(unsigned int type, const std::string source)
+{
+    unsigned int id = glCreateShader(type); //create empty shader object
+    const char* src = source.c_str();
+    GLCall(glShaderSource(id, 1, &src, nullptr));
+    GLCall(glCompileShader(id));    //Shader compile
+
+    int result;
+    GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));  //
+    if(result == GL_FALSE)  //failed compiled shader
+    {
+        int length;
+        GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
+        char message[length];
+        GLCall(glGetShaderInfoLog(id, length, &length, message));
+        GLCall(glDeleteShader(id));
+        return 0;
+    }
+    else
+    {
+        LOG("succeed to compiled "
+            << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
+            << " shader!");
+    }
+
+    return id;
+}
+
+unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+{
+    unsigned int program = glCreateProgram();   //create empty program object
+    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+
+    GLCall(glAttachShader(program, vs)); //program에 vs shader를 연결
+    GLCall(glAttachShader(program, fs)); //program에 fs shader를 연결
+    GLCall(glLinkProgram(program));     //link program
+#if DEBUG
+    GLCall(glValidateProgram(program)); //유효성 검사 program 지정, 개발용으로만 유용
+#endif
+    GLCall(glDeleteShader(vs)); //delete shader vs 
+    GLCall(glDeleteShader(fs)); //delete shader fs
+
+    return program;
+}
+
+void Shader::Bind()
+{
+    GLCall(glUseProgram(m_RendererID));
+}
+
+void Shader::Unbind()
+{
+    GLCall(glUseProgram(0));
+}

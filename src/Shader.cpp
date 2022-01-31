@@ -1,11 +1,13 @@
 #include "Shader.h"
 #include <GL/glew.h>
+#include <fstream>
+#include <sstream>
 
 #include "Debug.h"
 
-Shader::Shader()
+Shader::Shader(const std::string& vertexpath, const std::string& fragmentpath)
 {
-    m_RendererID = CreateShader(m_VertexShader, m_FragmentShader);
+    m_RendererID = CreateShader(vertexpath, fragmentpath);
 }
 
 Shader::~Shader()
@@ -41,11 +43,18 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string source)
     return id;
 }
 
-unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+unsigned int Shader::CreateShader(const std::string& vertexpath, const std::string& fragmentpath)
 {
+    std::ifstream v_stream(vertexpath, std::ios::in);
+    std::ifstream f_stream(fragmentpath, std::ios::in);
+    std::stringstream vertexShader; 
+    std::stringstream fragmentShader; 
+    vertexShader << v_stream.rdbuf();
+    fragmentShader << f_stream.rdbuf();
+
     unsigned int program = glCreateProgram();   //create empty program object
-    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader.str());
+    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader.str());
 
     GLCall(glAttachShader(program, vs)); //program에 vs shader를 연결
     GLCall(glAttachShader(program, fs)); //program에 fs shader를 연결
@@ -67,4 +76,42 @@ void Shader::Bind()
 void Shader::Unbind()
 {
     GLCall(glUseProgram(0));
+}
+
+int Shader::GetUniformLocation(const std::string& name)
+{
+    if(m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+        return m_UniformLocationCache[name];
+    
+    GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+    if(location == -1)
+        LOG("Warring: Uniform '" << name << "' doesn't exist!");
+    
+    m_UniformLocationCache[name] = location;
+    return location;
+}
+
+void Shader::SetUniform1i(const std::string& name, int value)
+{
+    GLCall(glUniform1i(GetUniformLocation(name), value));
+}
+
+void Shader::SetUniform1iv(const std::string& name, int count ,int* value)
+{
+    GLCall(glUniform1iv(GetUniformLocation(name), count, value));
+}
+
+void Shader::SetUniform1f(const std::string& name, float value)
+{
+    GLCall(glUniform1f(GetUniformLocation(name), value));
+}
+
+void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
+{
+    GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
+}
+
+void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
+{
+    GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 }

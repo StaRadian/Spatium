@@ -3,7 +3,7 @@
 #if DEBUG
     #include <iostream>
     
-    #define LOG(x) std::cout << x << std::endl
+    #define LOG(x) std::cerr << x << std::endl
     #define ASSERT(x) if (!(x)) __debugbreak();
     #define GLCall(x) GLClearError();\
         x;\

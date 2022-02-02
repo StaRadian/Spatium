@@ -31,4 +31,14 @@ namespace SPAT
         float hHeight;
         float degree;
     };
+
+    struct IndexElement
+    {
+        unsigned int i0;
+        unsigned int i1;
+        unsigned int i2;
+        unsigned int i3;
+        unsigned int i4;
+        unsigned int i5;
+    };
 }

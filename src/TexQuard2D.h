@@ -10,7 +10,12 @@ namespace SPAT
     private:
         std::vector<Vertex2D> m_Vertex;
         std::vector<VertexCache2D> m_VertexCache;
+        std::vector<IndexElement> m_Index;
+        unsigned int m_Index0;
+
+        void PushIndex();
     public:
+        TexQuard2D();
         void CreateQuard(const float textureID = 0.0f, const float x = 0.0f, const float y = 0.0f, 
             const float weight = 0.0f, const float height = 0.0f, const float degree = 0.0f);
         void EditQuard(const float target, const float x, const float y, 
@@ -30,8 +35,12 @@ namespace SPAT
         void AddHeight(const int target, const float add);
         void AddSize(const int target, const float addWeight, const float addHeight);
 
-        Vertex2D *GetElement(const int target) { return &(m_Vertex[target]); }
-        float *GetVertex() { return &(m_Vertex[0].v0.Position2D.x); }
-        unsigned int GetSize() { return m_Vertex.size() * sizeof(Vertex2D); }
+        void SetDegree(const int target, const float degree);
+
+        inline Vertex2D *GetElement(const int target) { return &(m_Vertex[target]); }
+        inline Vertex2D *GetVertex() { return &(m_Vertex[0]); }
+        inline unsigned int GetSize() { return m_Vertex.size() * sizeof(Vertex2D); }
+        inline IndexElement *GetIndex() { return &(m_Index[0]);};
+        inline unsigned int GetIndexSize() { return m_Index.size() * 6;};
     };
 }

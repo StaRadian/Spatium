@@ -57,10 +57,10 @@ namespace SPAT
         {
             VertexArray va;
 
-            VertexBuffer vb(nullptr, sizeof(Vertex) * 1000);
+            VertexBuffer vb(nullptr, sizeof(Vertex2D) * 1000);
             
             VertexBufferLayout layout;
-            layout.Push<float>(3);
+            layout.Push<float>(2);
             layout.Push<float>(2);
             layout.Push<float>(1);
             
@@ -84,13 +84,16 @@ namespace SPAT
                 * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
             TexQuard2D quard;
-            quard.CreateQuard(0.0f, 0.0f, 100.0f, 100.0f, 0.0f);
-            quard.CreateQuard(0.0f, 0.0f, 100.0f, 100.0f, 1.0f);
+            quard.CreateQuard(400.0f, 200.0f, 100.0f, 100.0f, 0.5f, 0.0f);
+            quard.CreateQuard(300.0f, 100.0f, 100.0f, 100.0f, 2.0f, 1.0f);
+
+            float i = 0;
 
             while (!glfwWindowShouldClose(window))
             {
-                quard.AddPosX(1, 0.5);
+                quard.EditQuard(1.0f, 400.0f, 200.0f, 100.0f, 100.0f, i, 1.0f);
 
+                i += 0.05f;
                 vb.Bind();
                 glBufferSubData(GL_ARRAY_BUFFER, 0, quard.GetSize(), quard.GetVertex());
 

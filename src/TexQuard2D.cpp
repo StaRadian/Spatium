@@ -1,102 +1,190 @@
 #include "TexQuard2D.h"
 
+#include <math.h>
+
+#define SIN(x) sin(x)
+#define COS(x) cos(x)
+
 namespace SPAT
 {
-    float TexQuard2D::CreateQuard(const float x, const float y, 
-        const float weight, const float height, const float textureID)
+    void TexQuard2D::CreateQuard(const float x, const float y, 
+        const float weight, const float height, const float degree, const float textureID)
     {
-        Vertex vertex;
-        VertexCache vertexCache;
-        vertexCache.height = height;
-        vertexCache.weight = weight;
+        Vertex2D vex;
+        VertexCache2D vexc;
+        
+        vexc.x = x;
+        vexc.y = y;
+        vexc.hWeight = weight / 2.0f;
+        vexc.hHeight = height / 2.0f;
+        vexc.degree = degree;
 
-        vertex.v0.Position = { x, y, 0.0f };
-        vertex.v0.TexCoords = { 0.0f, 0.0f };
-        vertex.v0.TexID = textureID;
+        float sind = SIN(degree);
+        float cosd = COS(degree);
 
-        vertex.v1.Position = { x + weight, y, 0.0f };
-        vertex.v1.TexCoords = { 1.0f, 0.0f };
-        vertex.v1.TexID = textureID;
+        float hWeightsind = vexc.hWeight * sind;
+        float hWeightcosd = vexc.hWeight * cosd;
+        float hHeightsind = vexc.hHeight * sind;
+        float hHeightcosd = vexc.hHeight * cosd;
 
-        vertex.v2.Position = { x + weight, y + height, 0.0f };
-        vertex.v2.TexCoords = { 1.0f, 1.0f };
-        vertex.v2.TexID = textureID;
+        vex.v0.Position2D = { x - hWeightcosd + hHeightsind, y - hWeightsind - hHeightcosd };
+        vex.v0.TexCoords = { 0.0f, 0.0f };
+        vex.v0.TexID = textureID;
 
-        vertex.v3.Position = { x, y + height, 0.0f };
-        vertex.v3.TexCoords = { 0.0f, 1.0f };
-        vertex.v3.TexID = textureID;
+        vex.v1.Position2D = { x + hWeightcosd + hHeightsind, y + hWeightsind - hHeightcosd };
+        vex.v1.TexCoords = { 1.0f, 0.0f };
+        vex.v1.TexID = textureID;
 
-        m_Vertex.push_back(vertex);
-        m_VertexCache.push_back(vertexCache);
+        vex.v2.Position2D = { x + hWeightcosd - hHeightsind, y + hWeightsind + hHeightcosd };
+        vex.v2.TexCoords = { 1.0f, 1.0f };
+        vex.v2.TexID = textureID;
 
-        return textureID;
+        vex.v3.Position2D = { x - hWeightcosd - hHeightsind, y - hWeightsind + hHeightcosd };
+        vex.v3.TexCoords = { 0.0f, 1.0f };
+        vex.v3.TexID = textureID;
+
+        m_Vertex.push_back(vex);
+        m_VertexCache.push_back(vexc);
+    }
+
+    void TexQuard2D::EditQuard(const float target, const float x, const float y, 
+        const float weight, const float height, const float degree, const float textureID)
+    {
+        m_VertexCache[target].x = x;
+        m_VertexCache[target].y = y;
+        m_VertexCache[target].hWeight = weight / 2.0;
+        m_VertexCache[target].hHeight = height / 2.0;
+        m_VertexCache[target].degree = degree;
+
+        float sind = SIN(degree);
+        float cosd = COS(degree);
+
+        float hWeightsind = m_VertexCache[target].hWeight * sind;
+        float hWeightcosd = m_VertexCache[target].hWeight * cosd;
+        float hHeightsind = m_VertexCache[target].hHeight * sind;
+        float hHeightcosd = m_VertexCache[target].hHeight * cosd;
+
+        m_Vertex[target].v0.Position2D = { x - hWeightcosd + hHeightsind, y - hWeightsind - hHeightcosd };
+        m_Vertex[target].v0.TexCoords = { 0.0f, 0.0f };
+        m_Vertex[target].v0.TexID = textureID;
+
+        m_Vertex[target].v1.Position2D = { x + hWeightcosd + hHeightsind, y + hWeightsind - hHeightcosd };
+        m_Vertex[target].v1.TexCoords = { 1.0f, 0.0f };
+        m_Vertex[target].v1.TexID = textureID;
+
+        m_Vertex[target].v2.Position2D = { x + hWeightcosd - hHeightsind, y + hWeightsind + hHeightcosd };
+        m_Vertex[target].v2.TexCoords = { 1.0f, 1.0f };
+        m_Vertex[target].v2.TexID = textureID;
+
+        m_Vertex[target].v3.Position2D = { x - hWeightcosd - hHeightsind, y - hWeightsind + hHeightcosd };
+        m_Vertex[target].v3.TexCoords = { 0.0f, 1.0f };
+        m_Vertex[target].v3.TexID = textureID;
     }
 
     void TexQuard2D::SetPosX(const int target, const float x)
     {
-        m_Vertex[target].v0.Position.x = x;
-        m_Vertex[target].v1.Position.x = x + m_VertexCache[target].weight;
-        m_Vertex[target].v2.Position.x = x + m_VertexCache[target].weight;
-        m_Vertex[target].v3.Position.x = x;
+        float add = x - m_VertexCache[target].x;
+        m_Vertex[target].v0.Position2D.x += add;
+        m_Vertex[target].v1.Position2D.x += add;
+        m_Vertex[target].v2.Position2D.x += add;
+        m_Vertex[target].v3.Position2D.x += add;
+        m_VertexCache[target].x += add;
     }
 
     void TexQuard2D::SetPosY(const int target, const float y)
     {
-        m_Vertex[target].v0.Position.y = y;
-        m_Vertex[target].v1.Position.y = y;
-        m_Vertex[target].v2.Position.y = y + m_VertexCache[target].height;
-        m_Vertex[target].v3.Position.y = y + m_VertexCache[target].height;
+        float add = y - m_VertexCache[target].y;
+        m_Vertex[target].v0.Position2D.y += add;
+        m_Vertex[target].v1.Position2D.y += add;
+        m_Vertex[target].v2.Position2D.y += add;
+        m_Vertex[target].v3.Position2D.y += add;
+        m_VertexCache[target].y += add;
+    }
+
+    void TexQuard2D::SetPosXY(const int target, const float x, const float y)
+    {
+        float addx = x - m_VertexCache[target].x;
+        float addy = y - m_VertexCache[target].y;
+        m_Vertex[target].v0.Position2D.x += addx;
+        m_Vertex[target].v1.Position2D.x += addx;
+        m_Vertex[target].v2.Position2D.x += addx;
+        m_Vertex[target].v3.Position2D.x += addx;
+        m_Vertex[target].v0.Position2D.y += addy;
+        m_Vertex[target].v1.Position2D.y += addy;
+        m_Vertex[target].v2.Position2D.y += addy;
+        m_Vertex[target].v3.Position2D.y += addy;
+        m_VertexCache[target].x += addx;
+        m_VertexCache[target].y += addy;
     }
 
     void TexQuard2D::AddPosX(const int target, const float add)
     {
-        m_Vertex[target].v0.Position.x += add;
-        m_Vertex[target].v1.Position.x += add;
-        m_Vertex[target].v2.Position.x += add;
-        m_Vertex[target].v3.Position.x += add;
+        m_Vertex[target].v0.Position2D.x += add;
+        m_Vertex[target].v1.Position2D.x += add;
+        m_Vertex[target].v2.Position2D.x += add;
+        m_Vertex[target].v3.Position2D.x += add;
+        m_VertexCache[target].x += add;
     }
 
     void TexQuard2D::AddPosY(const int target, const float add)
     {
-        m_Vertex[target].v0.Position.y += add;
-        m_Vertex[target].v1.Position.y += add;
-        m_Vertex[target].v2.Position.y += add;
-        m_Vertex[target].v3.Position.y += add;
+        m_Vertex[target].v0.Position2D.y += add;
+        m_Vertex[target].v1.Position2D.y += add;
+        m_Vertex[target].v2.Position2D.y += add;
+        m_Vertex[target].v3.Position2D.y += add;
+        m_VertexCache[target].y += add;
+    }
+
+    void TexQuard2D::AddPosXY(const int target, const float addx, const float addy)
+    {
+        m_Vertex[target].v0.Position2D.x += addx;
+        m_Vertex[target].v1.Position2D.x += addx;
+        m_Vertex[target].v2.Position2D.x += addx;
+        m_Vertex[target].v3.Position2D.x += addx;
+        m_Vertex[target].v0.Position2D.y += addy;
+        m_Vertex[target].v1.Position2D.y += addy;
+        m_Vertex[target].v2.Position2D.y += addy;
+        m_Vertex[target].v3.Position2D.y += addy;
+        m_VertexCache[target].x += addx;
+        m_VertexCache[target].y += addy;
     }
 
     void TexQuard2D::SetWeight(const int target, const float weight)
     {
-        float add = weight - m_VertexCache[target].weight;
+        float hweight = (weight / 2.0f);
+        float addweight = hweight - m_VertexCache[target].hWeight;
+        float degree = m_VertexCache[target].degree;
+        float addx = addweight * cos(degree);
+        float addy = addweight * sin(degree);
 
-        m_Vertex[target].v1.Position.x += add;
-        m_Vertex[target].v2.Position.x += add;
-
-        m_VertexCache[target].weight = weight;
+        m_Vertex[target].v0.Position2D.x -= addx;
+        m_Vertex[target].v1.Position2D.x += addx;
+        m_Vertex[target].v2.Position2D.x += addx;
+        m_Vertex[target].v3.Position2D.x -= addx;
+        m_Vertex[target].v0.Position2D.y -= addy;
+        m_Vertex[target].v1.Position2D.y += addy;
+        m_Vertex[target].v2.Position2D.y += addy;
+        m_Vertex[target].v3.Position2D.y -= addy;
+        m_VertexCache[target].hWeight = hweight;
     }
-
     void TexQuard2D::SetHeight(const int target, const float height)
     {
-        float add = height - m_VertexCache[target].height;
-
-        m_Vertex[target].v2.Position.y += add;
-        m_Vertex[target].v3.Position.y += add;
-
-        m_VertexCache[target].height = height;
+        
     }
+    void TexQuard2D::SetSize(const int target, const float weight, const float height)
+    {
 
+    }
     void TexQuard2D::AddWeight(const int target, const float add)
     {
-        m_Vertex[target].v1.Position.x += add;
-        m_Vertex[target].v2.Position.x += add;
 
-        m_VertexCache[target].weight += add;
     }
-
     void TexQuard2D::AddHeight(const int target, const float add)
     {
-        m_Vertex[target].v2.Position.y += add;
-        m_Vertex[target].v3.Position.y += add;
 
-        m_VertexCache[target].height += add;
+    }
+    void TexQuard2D::AddSize(const int target, const float addWeight, const float addHeight)
+    {
+
     }
 }

@@ -2,6 +2,8 @@
 
 #if DEBUG
     #include <GL/glew.h>    //GLEW 라이브러리
+namespace SPAT
+{
     void GLClearError()
     {
         while(glGetError() != GL_NO_ERROR);
@@ -17,4 +19,5 @@
         }
         return true;
     }
+}
 #endif

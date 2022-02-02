@@ -38,9 +38,9 @@ namespace SPAT
         void SetDegree(const int target, const float degree);
 
         inline Vertex2D *GetElement(const int target) { return &(m_Vertex[target]); }
-        inline Vertex2D *GetVertex() { return &(m_Vertex[0]); }
-        inline unsigned int GetSize() { return m_Vertex.size() * sizeof(Vertex2D); }
-        inline IndexElement *GetIndex() { return &(m_Index[0]);};
-        inline unsigned int GetIndexSize() { return m_Index.size() * 6;};
+        inline float *GetVertex() { return &(m_Vertex[0].v0.Position2D.x); }
+        inline unsigned int GetSize() const { return m_Vertex.size() * sizeof(Vertex2D); }
+        inline unsigned int *GetIndex() { return &(m_Index[0].i0);};
+        inline unsigned int GetIndexSize() const { return m_Index.size() * 6;};
     };
 }

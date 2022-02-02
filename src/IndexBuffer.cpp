@@ -32,9 +32,4 @@ namespace SPAT
     {
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
     }
-
-    unsigned int IndexBuffer::GetCount() const
-    {
-        return m_Count;
-    }
 }

@@ -15,7 +15,7 @@
 
 namespace SPAT
 {
-    inline bool InitMain(GLFWwindow*& window)
+    static inline bool InitMain(GLFWwindow*& window)
     {
         if (!glfwInit())
             return false;
@@ -39,7 +39,7 @@ namespace SPAT
         return true;
     }
 
-    inline int SPATmain(void)
+    static inline int SPATmain(void)
     {
         GLFWwindow* window;
 

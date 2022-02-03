@@ -27,7 +27,7 @@ namespace spat
     struct VertexCache2D
     {
         float x, y;
-        float hWeight;
+        float hWidth;
         float hHeight;
         float degree;
     };

@@ -18,9 +18,9 @@ namespace spat
         TexQuard2D();
         ~TexQuard2D();
         void CreateQuard(const float textureID = 0.0f, const float x = 0.0f, const float y = 0.0f, 
-            const float weight = 0.0f, const float height = 0.0f, const float degree = 0.0f);
+            const float width = 0.0f, const float height = 0.0f, const float degree = 0.0f);
         void EditQuard(const float target, const float x, const float y, 
-        const float weight, const float height, const float degree, const float textureID);
+        const float width, const float height, const float degree, const float textureID);
 
         void SetPosX(const int target, const float x);
         void SetPosY(const int target, const float y);
@@ -29,12 +29,12 @@ namespace spat
         void AddPosY(const int target, const float add);
         void AddPosXY(const int target, const float addx, const float addy);
 
-        void SetWeight(const int target, const float weight);
+        void SetWidth(const int target, const float width);
         void SetHeight(const int target, const float height);
-        void SetSize(const int target, const float weight, const float height);
-        void AddWeight(const int target, const float add);
+        void SetSize(const int target, const float width, const float height);
+        void AddWidth(const int target, const float add);
         void AddHeight(const int target, const float add);
-        void AddSize(const int target, const float addWeight, const float addHeight);
+        void AddSize(const int target, const float addWidth, const float addHeight);
 
         void SetDegree(const int target, const float degree);
 

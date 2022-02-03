@@ -6,39 +6,39 @@
 
 #include "stb_image/stb_image.h"
 
+#include "src/Debug.h"
 
 int main(void)
 {
     GLFWwindow* window;
-    
-    if (!glfwInit())
-        return -1;
 
-    box::SandboxWin test(window);
-
-    if (!window)
     {
-        glfwTerminate();
-        return -1;
-    }
+        if (!glfwInit())
+            return -1;
 
-    glfwMakeContextCurrent(window);
+        box::SandboxWin boxWin(window);
 
-    glfwSwapInterval(1);    //vsync 활성화
-    
-    if (glewInit() != GLEW_OK)
-    {
-        glfwTerminate();
-        return -1;
-    }
-    {
+        if (!window)
+        {
+            glfwTerminate();
+            return -1;
+        }
+        
+        if (glewInit() != GLEW_OK)
+        {
+            glfwTerminate();
+            return -1;
+        }
+
         box::Sandbox box;
 
+        int i = 0;
         while (!glfwWindowShouldClose(window))  //loop
         {
-
             glClear(GL_COLOR_BUFFER_BIT);
             
+            glfwSetWindowPos(window, i++, 0);
+
             box.OnRender();
 
             glfwSwapBuffers(window);
@@ -46,5 +46,6 @@ int main(void)
             glfwPollEvents();
         }    
     }
+    
     glfwTerminate();
 }

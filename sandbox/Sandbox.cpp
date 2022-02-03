@@ -13,8 +13,7 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        m_Quard.CreateQuard(300.0f, 100.0f, 150.0f, 150.0f, 0.5f, 0.0f);
-        m_Quard.CreateQuard(400.0f, 300.0f, 200.0f, 200.0f, 0.0f, 1.0f);
+        m_Quard.CreateQuard(50.0f, 50.0f, 100.0f, 100.0f, 0.0f, 1.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
@@ -39,6 +38,7 @@ namespace box
         int samplers[2] = { 0, 1 };
         m_Shader -> SetUniform1iv("u_Texture", 2, samplers);
 
+        //GLCall(glClearColor(0.2f, 0.3f, 0.8f, 1.0f));
     }
 
     Sandbox::~Sandbox()
@@ -48,9 +48,9 @@ namespace box
 
     void Sandbox::OnRender()
     {
-        m_Quard.SetDegree(1.0f, i);
-        m_Quard.SetHeight(1.0f, j);
-        m_Quard.SetPosX(1.0f, j);
+        m_Quard.SetDegree(0.0f, i);
+        //m_Quard.SetHeight(1.0f, j);
+        //m_Quard.SetPosX(1.0f, j);
 
         i += 0.05f;
         j += jincrease;
@@ -60,7 +60,7 @@ namespace box
             jincrease = 1.0f;
         
         glm::mat4 mvp = 
-            glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f)
+            glm::ortho(0.0f, 100.0f, 0.0f, 100.0f, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
         m_VertexBuffer -> Bind();

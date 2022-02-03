@@ -1,7 +1,7 @@
 #pragma once
 #include "VertexBufferLayout.h"
 
-namespace SPAT
+namespace spat
 {
     class VertexArray
     {

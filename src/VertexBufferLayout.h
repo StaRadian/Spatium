@@ -2,7 +2,7 @@
 #include <vector>
 #include <GL/glew.h>
 
-namespace SPAT
+namespace spat
 {
     struct VertexBufferElement
     {

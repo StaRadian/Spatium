@@ -1,6 +1,6 @@
 #include "VertexBufferLayout.h"
 
-namespace SPAT
+namespace spat
 {
     template<>
     void VertexBufferLayout::Push<float>(unsigned int count)

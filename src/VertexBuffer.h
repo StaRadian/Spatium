@@ -1,6 +1,6 @@
 #pragma once
 
-namespace SPAT
+namespace spat
 {
     class VertexBuffer
     {

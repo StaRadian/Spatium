@@ -5,7 +5,7 @@
 
 #include "Debug.h"
 
-namespace SPAT
+namespace spat
 {
     Shader::Shader(const std::string& vertexpath, const std::string& fragmentpath)
     {

@@ -4,7 +4,7 @@
 
 #include "Debug.h"
 
-namespace SPAT
+namespace spat
 {
     VertexBuffer::VertexBuffer(const void* data, const unsigned int size)
     {

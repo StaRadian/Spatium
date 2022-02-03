@@ -3,7 +3,7 @@
 
 #include "Debug.h"
 
-namespace SPAT
+namespace spat
 {
     IndexBuffer::IndexBuffer(const unsigned int *data, const unsigned int count)
         :m_Count(count)

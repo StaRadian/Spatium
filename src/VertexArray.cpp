@@ -2,7 +2,7 @@
 
 #include "Debug.h"
 
-namespace SPAT
+namespace spat
 {
     VertexArray::VertexArray()
     {

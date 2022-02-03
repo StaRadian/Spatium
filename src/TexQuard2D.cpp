@@ -5,10 +5,15 @@
 #define SIN(x) sin(x)
 #define COS(x) cos(x)
 
-namespace SPAT
+namespace spat
 {
     TexQuard2D::TexQuard2D()
         :m_Index0(0)
+    {
+
+    }
+
+    TexQuard2D::~TexQuard2D()
     {
 
     }

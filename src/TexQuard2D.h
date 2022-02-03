@@ -3,7 +3,7 @@
 #include "VertexMat.h"
 #include <vector>
 
-namespace SPAT
+namespace spat
 {
     class TexQuard2D
     {
@@ -16,6 +16,7 @@ namespace SPAT
         void PushIndex();
     public:
         TexQuard2D();
+        ~TexQuard2D();
         void CreateQuard(const float textureID = 0.0f, const float x = 0.0f, const float y = 0.0f, 
             const float weight = 0.0f, const float height = 0.0f, const float degree = 0.0f);
         void EditQuard(const float target, const float x, const float y, 

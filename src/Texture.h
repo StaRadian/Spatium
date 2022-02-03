@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace SPAT
+namespace spat
 {
     class Texture
     {

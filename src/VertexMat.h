@@ -2,7 +2,7 @@
 
 #define PI 3.1415926
 
-namespace SPAT
+namespace spat
 {
     struct Vec2
     {

@@ -59,7 +59,7 @@ namespace spat
         PushIndex();
     }
 
-    void TexQuard2D::EditQuard(const float target, const float x, const float y, 
+    void TexQuard2D::EditQuard(const int target, const float x, const float y, 
         const float width, const float height, const float degree, const float textureID)
     {
         m_VertexCache[target].x = x;

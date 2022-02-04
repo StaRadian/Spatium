@@ -17,9 +17,9 @@ namespace spat
     public:
         TexQuard2D();
         ~TexQuard2D();
-        void CreateQuard(const float textureID = 0.0f, const float x = 0.0f, const float y = 0.0f, 
-            const float width = 0.0f, const float height = 0.0f, const float degree = 0.0f);
-        void EditQuard(const float target, const float x, const float y, 
+        void CreateQuard(const float x = 0.0f, const float y = 0.0f, 
+            const float width = 0.0f, const float height = 0.0f, const float degree = 0.0f, const float textureID = 0);
+        void EditQuard(const int target, const float x, const float y, 
         const float width, const float height, const float degree, const float textureID);
 
         void SetPosX(const int target, const float x);

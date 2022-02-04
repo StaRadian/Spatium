@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <string>
+
 namespace box
 {
     struct size
@@ -22,6 +24,7 @@ namespace box
         Sandbox();
         ~Sandbox();
         inline GLFWwindow* GetWindow() const {return m_Window;}
+        void SetIcon(const std::string& icon_path);
     public:
         virtual void RenderInit() {}
         virtual void OnUpdate(float deltaTime) {}

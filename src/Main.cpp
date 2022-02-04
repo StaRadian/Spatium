@@ -4,8 +4,6 @@
 #include "sandbox/SandKenny.h"
 #include "sandbox/SandChaos.h"
 
-#include "stb_image/stb_image.h"
-
 #include "src/Debug.h"
 
 int main(void)
@@ -13,23 +11,24 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    box::SandChaos *box = new box::SandChaos;
+    box::SandKenny *box = new box::SandKenny;
 
     if (!box -> GetWindow())
     {
+        delete box;
         glfwTerminate();
         return -1;
     }
     
     if (glewInit() != GLEW_OK)
     {
+        delete box;
         glfwTerminate();
         return -1;
     }
 
     box -> RenderInit();
 
-    int i = 0;
     while (!glfwWindowShouldClose(box -> GetWindow()))  //loop
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -43,4 +42,5 @@ int main(void)
     
     delete box;
     glfwTerminate();
+    return 0;
 }

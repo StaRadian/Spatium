@@ -1,4 +1,5 @@
 #include "Sandbox.h"
+#include "stb_image/stb_image.h"
 
 namespace box
 {
@@ -13,5 +14,13 @@ namespace box
     Sandbox::~Sandbox()
     {
 
+    }
+
+    void Sandbox::SetIcon(const std::string& icon_path)
+    {
+        GLFWimage images[1]; 
+        images[0].pixels = stbi_load(icon_path.c_str(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
+        glfwSetWindowIcon(m_Window, 1, images); 
+        stbi_image_free(images[0].pixels);
     }
 }

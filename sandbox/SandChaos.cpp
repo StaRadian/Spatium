@@ -18,9 +18,11 @@ namespace box
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
-        glfwSetWindowPos(m_Window, (m_MonitorSize.width - m_WinSize.width) / 2, (m_MonitorSize.height - m_WinSize.height) / 2);
+        glfwSetWindowPos(GetWindow(), (m_MonitorSize.width - m_WinSize.width) / 2, (m_MonitorSize.height - m_WinSize.height) / 2);
 
-        glfwMakeContextCurrent(m_Window);
+        SetIcon("./res/textures/kenny.png");
+
+        glfwMakeContextCurrent(GetWindow());
         
         glfwSwapInterval(1);    //vsync 활성화
     }

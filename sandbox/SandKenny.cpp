@@ -17,6 +17,8 @@ namespace box
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
+        SetIcon("./res/textures/kenny.png");
+
         glfwMakeContextCurrent(GetWindow());
         
         glfwSwapInterval(1);    //vsync 활성화
@@ -64,7 +66,7 @@ namespace box
 
     void SandKenny::OnRender()
     {
-        glfwSetWindowPos(GetWindow(), i++, 0);
+        glfwSetWindowPos(GetWindow(), j++, 100);
         m_Quard.SetDegree(0.0f, i);
 
         i += 0.05f;

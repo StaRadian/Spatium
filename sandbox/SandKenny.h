@@ -23,6 +23,7 @@ namespace box
         spat::TexQuard2D m_Quard;
         
         float i = 0.0f;
+        int j = 0;
     
     public:
         SandKenny();

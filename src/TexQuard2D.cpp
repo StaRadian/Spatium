@@ -60,7 +60,7 @@ namespace spat
     }
 
     void TexQuard2D::EditQuard(const int target, const float x, const float y, 
-        const float width, const float height, const float degree, const float textureID)
+        const float width, const float height, const float degree, const float pct_x, const float pct_y, const float pct_width, const float pct_height, const float textureID)
     {
         m_VertexCache[target].x = x;
         m_VertexCache[target].y = y;
@@ -77,19 +77,19 @@ namespace spat
         float hHeightcosd = m_VertexCache[target].hHeight * cosd;
 
         m_Vertex[target].v0.Position2D = { x - hWidthcosd + hHeightsind, y - hWidthsind - hHeightcosd };
-        m_Vertex[target].v0.TexCoords = { 0.0f, 0.0f };
+        m_Vertex[target].v0.TexCoords = { pct_x, pct_y };
         m_Vertex[target].v0.TexID = textureID;
 
         m_Vertex[target].v1.Position2D = { x + hWidthcosd + hHeightsind, y + hWidthsind - hHeightcosd };
-        m_Vertex[target].v1.TexCoords = { 1.0f, 0.0f };
+        m_Vertex[target].v1.TexCoords = { pct_x + , pct_y };
         m_Vertex[target].v1.TexID = textureID;
 
         m_Vertex[target].v2.Position2D = { x + hWidthcosd - hHeightsind, y + hWidthsind + hHeightcosd };
-        m_Vertex[target].v2.TexCoords = { 1.0f, 1.0f };
+        m_Vertex[target].v2.TexCoords = { pct_x + , pct_y + };
         m_Vertex[target].v2.TexID = textureID;
 
         m_Vertex[target].v3.Position2D = { x - hWidthcosd - hHeightsind, y - hWidthsind + hHeightcosd };
-        m_Vertex[target].v3.TexCoords = { 0.0f, 1.0f };
+        m_Vertex[target].v3.TexCoords = { pct_x, pct_y + };
         m_Vertex[target].v3.TexID = textureID;
     }
 

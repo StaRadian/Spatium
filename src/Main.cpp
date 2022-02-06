@@ -11,7 +11,8 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    box::SandKenny *box = new box::SandKenny;
+    box::Sandbox *box = nullptr;
+    box = new box::SandKenny;
 
     if (!box -> GetWindow())
     {

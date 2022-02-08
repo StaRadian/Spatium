@@ -12,8 +12,8 @@ int main(void)
         return -1;
 
     box::Sandbox *box = nullptr;
-    box = new box::SandKenny;
-    // box = new box::SandChaos;
+    //box = new box::SandKenny;
+    box = new box::SandChaos;
 
     if (!box -> GetWindow())
     {

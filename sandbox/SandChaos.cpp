@@ -79,6 +79,8 @@ namespace box
         
         int samplers[3] = { 0, 1, 2 };
         m_Shader -> SetUniform1iv("u_Texture", 3, samplers);
+
+        GLCall(glClearColor( 0.2f, 0.3f, 0.8f, 1.0f ));
     }
 
     void SandChaos::OnUpdate()

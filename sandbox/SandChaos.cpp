@@ -81,12 +81,7 @@ namespace box
         m_Shader -> SetUniform1iv("u_Texture", 3, samplers);
     }
 
-    void SandChaos::OnUpdate(float deltaTime)
-    {
-
-    }
-
-    void SandChaos::OnRender()
+    void SandChaos::OnUpdate()
     {
         m_Quard.SetDegree(1, i);
         m_Quard.SetHeight(1, j);
@@ -98,7 +93,10 @@ namespace box
             jincrease = -1.0f;
         else if(j < 50.0f)
             jincrease = 1.0f;
-        
+    }
+
+    void SandChaos::OnRender()
+    {   
         glm::mat4 mvp = 
             glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));

@@ -29,7 +29,7 @@ namespace box
         SandKenny();
         ~SandKenny();
         void RenderInit() override;
-        void OnUpdate(float deltaTime) override;
+        void OnUpdate() override;
         void OnRender() override;
     };
 }

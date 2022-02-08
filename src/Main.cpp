@@ -35,6 +35,7 @@ int main(void)
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
+        box -> OnUpdate();
         box -> OnRender();
 
         glfwSwapBuffers(box -> GetWindow());

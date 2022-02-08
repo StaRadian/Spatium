@@ -51,37 +51,30 @@ namespace spat
         PushIndex();
     }
 
-    void TexQuard2D::EditQuard(const int target, const float x, const float y, 
-        const float width, const float height, const float degree, const float textureID)
+    void TexQuard2D::EditQuard(const int target, const VertexCache2D& num, const float textureID)
     {
-        m_VertexCache[target].pos.x = x;
-        m_VertexCache[target].pos.y = y;
-        m_VertexCache[target].hsize.x = width / 2.0;
-        m_VertexCache[target].hsize.y = height / 2.0;
-        m_VertexCache[target].degree = degree;
-
-        float sind = SIN(degree);
-        float cosd = COS(degree);
+        float sind = SIN(num.degree);
+        float cosd = COS(num.degree);
 
         float hWidthsind = m_VertexCache[target].hsize.x * sind;
         float hWidthcosd = m_VertexCache[target].hsize.x * cosd;
         float hHeightsind = m_VertexCache[target].hsize.y * sind;
         float hHeightcosd = m_VertexCache[target].hsize.y * cosd;
 
-        m_Vertex[target].v0.Position2D = { x - hWidthcosd + hHeightsind, y - hWidthsind - hHeightcosd };
-        m_Vertex[target].v0.TexCoords = { 0.0f, 0.0f };
+        m_Vertex[target].v0.Position2D = { num.pos.x - hWidthcosd + hHeightsind, num.pos.y - hWidthsind - hHeightcosd };
+        m_Vertex[target].v0.TexCoords = { num.pctpos.x, num.pctpos.y };
         m_Vertex[target].v0.TexID = textureID;
 
-        m_Vertex[target].v1.Position2D = { x + hWidthcosd + hHeightsind, y + hWidthsind - hHeightcosd };
-        m_Vertex[target].v1.TexCoords = { 1.0f , 0.0f };
+        m_Vertex[target].v1.Position2D = { num.pos.x + hWidthcosd + hHeightsind, num.pos.y + hWidthsind - hHeightcosd };
+        m_Vertex[target].v1.TexCoords = { num.pctpos.x + num.pctsize.x, num.pctpos.y };
         m_Vertex[target].v1.TexID = textureID;
 
-        m_Vertex[target].v2.Position2D = { x + hWidthcosd - hHeightsind, y + hWidthsind + hHeightcosd };
-        m_Vertex[target].v2.TexCoords = { 1.0f , 1.0f };
+        m_Vertex[target].v2.Position2D = { num.pos.x + hWidthcosd - hHeightsind, num.pos.y + hWidthsind + hHeightcosd };
+        m_Vertex[target].v2.TexCoords = { num.pctpos.x + num.pctsize.x, num.pctpos.y + num.pctsize.y };
         m_Vertex[target].v2.TexID = textureID;
 
-        m_Vertex[target].v3.Position2D = { x - hWidthcosd - hHeightsind, y - hWidthsind + hHeightcosd };
-        m_Vertex[target].v3.TexCoords = { 0.0f, 1.0f };
+        m_Vertex[target].v3.Position2D = { num.pos.x - hWidthcosd - hHeightsind, num.pos.y - hWidthsind + hHeightcosd };
+        m_Vertex[target].v3.TexCoords = { num.pctpos.x, num.pctpos.y + num.pctsize.y };
         m_Vertex[target].v3.TexID = textureID;
     }
 

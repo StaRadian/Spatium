@@ -23,4 +23,11 @@ namespace box
         glfwSetWindowIcon(m_Window, 1, images); 
         stbi_image_free(images[0].pixels);
     }
+
+    void Sandbox::UpdateDelta()
+    {
+        m_CurrentTime = glfwGetTime();
+        m_Delta = m_CurrentTime - m_LastTime;
+        m_LastTime = m_CurrentTime;
+    }
 }

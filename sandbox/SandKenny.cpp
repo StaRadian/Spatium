@@ -13,7 +13,7 @@ namespace box
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {150, 150};
+        m_WinSize = {140, 140};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
@@ -35,8 +35,8 @@ namespace box
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
         const spat::VertexCache2D quardInit = { 
-            75.0f, 75.0f, 50.0f, 75.0f, 
-            0.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f};
+            70.0f, 70.0f, 50.0f, 60.0f, 
+            0.0f, 0.0f, 1.0f / 3.0f, 0.8f, 0.0f};
 
         m_Quard.CreateQuard(quardInit, 0.0f);
 
@@ -63,18 +63,16 @@ namespace box
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);
     }
 
-    void SandKenny::OnUpdate(float deltaTime)
-    {
-
-    }
-
-    void SandKenny::OnRender()
+    void SandKenny::OnUpdate()
     {
         glfwSetWindowPos(GetWindow(), j++, 0);
         m_Quard.SetDegree(0, i);
 
         i += 0.05f;
-        
+    }
+
+    void SandKenny::OnRender()
+    {   
         glm::mat4 mvp = 
             glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));

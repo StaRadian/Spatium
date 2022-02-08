@@ -101,7 +101,7 @@ namespace box
     {   
         glm::mat4 mvp = 
             glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
-            * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+            * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0));
 
         m_VertexBuffer -> Bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, m_Quard.GetSize(), m_Quard.GetVertex());

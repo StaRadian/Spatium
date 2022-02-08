@@ -26,9 +26,10 @@ namespace spat
 
     struct VertexCache2D
     {
-        float x, y;
-        float hWidth;
-        float hHeight;
+        Vec2 pos;
+        Vec2 hsize; //half size
+        Vec2 pctpos;    //percent postion
+        Vec2 pctsize;
         float degree;
     };
 

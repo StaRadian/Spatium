@@ -13,7 +13,7 @@ namespace box
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {100, 100};
+        m_WinSize = {150, 150};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
@@ -34,7 +34,11 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        m_Quard.CreateQuard(50.0f, 50.0f, 100.0f, 100.0f, 0.0f, 0.0f);
+        const spat::VertexCache2D quardInit = { 
+            75.0f, 75.0f, 50.0f, 75.0f, 
+            0.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f};
+
+        m_Quard.CreateQuard(quardInit, 0.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
@@ -53,7 +57,7 @@ namespace box
 
         m_Shader -> Bind();
 
-        m_Mistarion_catTex = std::make_unique<spat::Texture>("./res/textures/Mistarion_cat.png");
+        m_Main_charactersTex = std::make_unique<spat::Texture>("./res/textures/main_characters.png");
         
         int samplers[1] = { 0 };
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);
@@ -66,8 +70,8 @@ namespace box
 
     void SandKenny::OnRender()
     {
-        glfwSetWindowPos(GetWindow(), j++, 100);
-        m_Quard.SetDegree(0.0f, i);
+        glfwSetWindowPos(GetWindow(), j++, 0);
+        m_Quard.SetDegree(0, i);
 
         i += 0.05f;
         
@@ -78,7 +82,7 @@ namespace box
         m_VertexBuffer -> Bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, m_Quard.GetSize(), m_Quard.GetVertex());
 
-        m_Mistarion_catTex -> Bind(0);
+        m_Main_charactersTex -> Bind(0);
         m_Shader -> Bind();
         
         m_Shader -> SetUniformMat4f("u_MVP", mvp);

@@ -37,10 +37,24 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        m_Quard.CreateQuard(50.0f, 50.0f, 100.0f, 100.0f, 0.0f, 0.0f);
-        m_Quard.CreateQuard(600.0f, 300.0f, 200.0f, 200.0f, 0.0f, 1.0f);
-        m_Quard.CreateQuard(150.0f, 250.0f, 100.0f, 100.0f, 2.0f, 0.0f);
-        m_Quard.CreateQuard(500.0f, 150.0f, 100.0f, 100.0f, 1.0f, 1.0f);
+        const spat::VertexCache2D quardInit[] = {
+            { 50.0f,  50.0f,  50.0f,  50.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f},                     //0
+            {800.0f, 500.0f, 200.0f, 200.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f},                     //1
+            {150.0f, 250.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f, 1.0f, -1.0f},                    //2
+            {600.0f, 150.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f, 1.0f, 2.0f},                     //3 
+                    
+            {200.0f, 200.0f, 100.0f, 150.0f, 0.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f},              //4
+            {400.0f, 200.0f, 100.0f, 150.0f, 1.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f},       //5
+            {600.0f, 200.0f, 100.0f, 150.0f, 2.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f}};      //6
+
+        m_Quard.CreateQuard(quardInit[4], 2.0f);
+        m_Quard.CreateQuard(quardInit[5], 2.0f);
+        m_Quard.CreateQuard(quardInit[6], 2.0f);
+
+        m_Quard.CreateQuard(quardInit[0], 0.0f);
+        m_Quard.CreateQuard(quardInit[1], 1.0f);
+        m_Quard.CreateQuard(quardInit[2], 0.0f);
+        m_Quard.CreateQuard(quardInit[3], 1.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
@@ -61,9 +75,10 @@ namespace box
 
         m_OscarHedgehogTex = std::make_unique<spat::Texture>("./res/textures/OscarHedgehog.png");
         m_Mistarion_catTex = std::make_unique<spat::Texture>("./res/textures/Mistarion_cat.png");
+        m_Main_charactersTex = std::make_unique<spat::Texture>("./res/textures/main_characters.png");
         
-        int samplers[2] = { 1, 0 };
-        m_Shader -> SetUniform1iv("u_Texture", 2, samplers);
+        int samplers[3] = { 0, 1, 2 };
+        m_Shader -> SetUniform1iv("u_Texture", 3, samplers);
     }
 
     void SandChaos::OnUpdate(float deltaTime)
@@ -93,6 +108,7 @@ namespace box
 
         m_OscarHedgehogTex -> Bind(0);
         m_Mistarion_catTex -> Bind(1);
+        m_Main_charactersTex -> Bind(2);
         m_Shader -> Bind();
         
         m_Shader -> SetUniformMat4f("u_MVP", mvp);

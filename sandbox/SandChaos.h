@@ -21,7 +21,7 @@ namespace box
         std::unique_ptr<spat::VertexBuffer> m_VertexBuffer;
         std::unique_ptr<spat::IndexBuffer> m_IndexBuffer;
         std::unique_ptr<spat::Shader> m_Shader;
-        std::unique_ptr<spat::Texture> m_OscarHedgehogTex, m_Mistarion_catTex;
+        std::unique_ptr<spat::Texture> m_OscarHedgehogTex, m_Mistarion_catTex, m_Main_charactersTex;
         spat::TexQuard2D m_Quard;
         
         float i = 0.0f;

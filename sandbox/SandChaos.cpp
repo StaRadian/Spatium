@@ -37,24 +37,35 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        const spat::VertexCache2D quardInit[] = {
-            { 50.0f,  50.0f,  50.0f,  50.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f},                     //0
-            {800.0f, 500.0f, 200.0f, 200.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f},                     //1
-            {150.0f, 250.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f, 1.0f, -1.0f},                    //2
-            {600.0f, 150.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f, 1.0f, 2.0f},                     //3 
-                    
-            {200.0f, 200.0f, 100.0f, 150.0f, 0.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f},              //4
-            {400.0f, 200.0f, 100.0f, 150.0f, 1.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f},       //5
-            {600.0f, 200.0f, 100.0f, 150.0f, 2.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f, 0.0f}};      //6
+        const spat::PosSizeData quardPSInit[] = { 
+            { 50.0f,  50.0f,  50.0f,  50.0f},
+            {800.0f, 500.0f, 200.0f, 200.0f},
+            {150.0f, 250.0f, 100.0f, 100.0f},
+            {600.0f, 150.0f, 100.0f, 100.0f},
 
-        m_Quard.CreateQuard(quardInit[4], 2.0f);
-        m_Quard.CreateQuard(quardInit[5], 2.0f);
-        m_Quard.CreateQuard(quardInit[6], 2.0f);
+            {200.0f, 200.0f, 100.0f, 150.0f,},
+            {400.0f, 200.0f, 100.0f, 150.0f,},
+            {600.0f, 200.0f, 100.0f, 150.0f,}
+        };
+        const spat::PosSizeData TexPSInit[] = {
+            {0.0f, 0.0f, 1.0f, 1.0f},
+            {0.0f, 0.0f, 1.0f, 1.0f},
+            {0.0f, 0.0f, 1.0f, 1.0f},
+            {0.0f, 0.0f, 1.0f, 1.0f},
 
-        m_Quard.CreateQuard(quardInit[0], 0.0f);
-        m_Quard.CreateQuard(quardInit[1], 1.0f);
-        m_Quard.CreateQuard(quardInit[2], 0.0f);
-        m_Quard.CreateQuard(quardInit[3], 1.0f);
+            {       0.0f, 0.0f, 1.0f / 3.0f, 1.0f},
+            {1.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f},
+            {2.0f / 3.0f, 0.0f, 1.0f / 3.0f, 1.0f}
+        };
+
+        m_Quard.CreateQuard(quardPSInit[4], TexPSInit[4], 2.0f);
+        m_Quard.CreateQuard(quardPSInit[5], TexPSInit[5], 2.0f);
+        m_Quard.CreateQuard(quardPSInit[6], TexPSInit[6], 2.0f);
+
+        m_Quard.CreateQuard(quardPSInit[0], TexPSInit[0], 0.0f);
+        m_Quard.CreateQuard(quardPSInit[1], TexPSInit[1], 1.0f);
+        m_Quard.CreateQuard(quardPSInit[2], TexPSInit[2], 0.0f);
+        m_Quard.CreateQuard(quardPSInit[3], TexPSInit[3], 1.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 

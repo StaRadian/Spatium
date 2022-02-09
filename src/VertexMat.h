@@ -9,6 +9,19 @@ namespace spat
         float x, y;
     };
 
+    struct TrigData
+    {
+        float sind;
+        float cosd;
+        float degree;
+    };
+
+    struct PosSizeData
+    {
+        Vec2 pos;
+        Vec2 size;
+    };
+
     struct VertexElement
     {
         Vec2 Position2D;
@@ -28,9 +41,7 @@ namespace spat
     {
         Vec2 pos;
         Vec2 hsize; //half size
-        Vec2 pctpos;    //percent postion
-        Vec2 pctsize;
-        float degree;
+        TrigData trig;
     };
 
     struct IndexElement

@@ -5,6 +5,8 @@
 
 #include "src/Debug.h"
 
+#include <math.h>
+
 namespace box
 {
     SandKenny::SandKenny()
@@ -34,11 +36,14 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        const spat::VertexCache2D quardInit = { 
-            70.0f, 70.0f, 50.0f, 60.0f, 
-            0.0f, 0.0f, 1.0f / 3.0f, 0.8f, 0.0f};
+        const spat::PosSizeData quardPSInit = { 
+            70.0f, 70.0f, 100.0f, 120.0f 
+        };
+        const spat::PosSizeData TexPSInit = {
+            0.0f, 0.0f, 1.0f/3.0f, 0.8f
+        };
 
-        m_Quard.CreateQuard(quardInit, 0.0f);
+        m_Quard.CreateQuard(quardPSInit, TexPSInit, 0.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
@@ -65,10 +70,13 @@ namespace box
 
     void SandKenny::OnUpdate()
     {
-        glfwSetWindowPos(GetWindow(), j++, 0);
-        m_Quard.SetDegree(0, i);
+        // glfwSetWindowPos(GetWindow(), 
+        //     sin(j) * (m_MonitorSize.width - m_WinSize.width) / 2 + (m_MonitorSize.width - m_WinSize.width) / 2,
+        //     cos(j) * (m_MonitorSize.height - m_WinSize.height) / 2 * (-1) + (m_MonitorSize.height - m_WinSize.height) / 2);
+        // m_Quard.SetDegree(0, i);
 
-        i += 0.05f;
+        // i += 0.05f;
+        // j += 0.01f;
     }
 
     void SandKenny::OnRender()

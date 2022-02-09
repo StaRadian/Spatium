@@ -1,6 +1,6 @@
 #pragma once
 
-#if DEBUG
+#ifdef DEBUG
 #include <iostream>
 
 #define LOG(x) std::cerr << x << std::endl

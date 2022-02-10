@@ -1,0 +1,20 @@
+name			            size		sheet pos	basic pos
+Eyebrow 			         100   12	   0   0      89 -116	
+KennyHandRight_Rock 	     120  120	   0  12	 262  438
+KennyHandLeft_Rock	         120  120	   0 132	-247  432
+KennyHandRight_Paper	     150  150 	   0 252	-182  413
+KennyHandLeft_Paper	         150  150 	   0 402	 197  401
+KennyHatFront		         665  668	 150   0	   0    0
+eyeball			              24   24	 120   0	 -45   -5
+NormalEyesFront		         400  200	   0 668	   1   -9
+Face			             635  646	 815   0	   0    0
+KennyArmRightFrontNomarl	 180  200	 400 668	-225  325
+KennyArmLeftFrontNomarl	     180  200	 580 668	 247  323
+KennyBadyFront		         500  300	 760 668	   1  371
+KennyArmRight_Bend	         200  300	1450   0	-207  350
+KennyArmLeft_Bend	         200  300	1450 300	 221  348
+KennyArmRight_Open	         250  150	   0 868	-251  318
+KennyArmLeft_Open	         250  150	 250 868	 263  314
+KennyPantFront		         450  250	1260 646	   0  442
+
+sheet size		            1710 1018               

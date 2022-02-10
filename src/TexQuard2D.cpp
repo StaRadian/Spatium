@@ -42,7 +42,7 @@ namespace spat
         vex.v3.TexID = textureID;
 
         m_Vertex.push_back(vex);
-        m_VertexCache.push_back({ num.size, hsize, {0.0f, 1.0f, 0.0f} });
+        m_VertexCache.push_back({ num.pos, hsize, {0.0f, 1.0f, 0.0f} });
         PushIndex();
     }
 
@@ -196,8 +196,8 @@ namespace spat
         m_VertexCache[target].trig.cosd = COS(degree);
         m_VertexCache[target].trig.degree = degree;
 
-        float hWidthsind = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.sind;
-        float hWidthcosd = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.cosd;
+        float hWidthsind  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.sind;
+        float hWidthcosd  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.cosd;
         float hHeightsind = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.sind;
         float hHeightcosd = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.cosd;
 

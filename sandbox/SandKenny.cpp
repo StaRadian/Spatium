@@ -5,7 +5,7 @@
 
 #include "src/Debug.h"
 
-#include <math.h>
+#include "kenny/Kenny.h"
 
 namespace box
 {
@@ -38,20 +38,10 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        const spat::PosSizeData quardPSInit[] = { 
-            0.0f, 0.0f, 665.0f / 10.0f, 668.0f / 10.0f,     // KennyHatFront
-            0.0f, 0.0f, 665.0f / 10.0f, 668.0f / 10.0f,     // KennyBadyFront
-            0.0f, 0.0f, 665.0f / 10.0f, 668.0f / 10.0f      // KennyPantFront
-        };
-        const spat::PosSizeData TexPSInit[] = {
-            150.0f / 1710.0f, 1.0f - 668.0f / 1018.0f, 665.0f / 1710.0f, 668.0f / 1018.0f,
-            150.0f / 1710.0f, 1.0f - 668.0f / 1018.0f, 665.0f / 1710.0f, 668.0f / 1018.0f,
-            150.0f / 1710.0f, 1.0f - 668.0f / 1018.0f, 665.0f / 1710.0f, 668.0f / 1018.0f
-        };
+        kenny::Kenny kenny;
 
-        m_Quard.CreateQuard(quardPSInit[0], TexPSInit[0], 0.0f);
-        m_Quard.CreateQuard(quardPSInit[1], TexPSInit[1], 0.0f);
-        m_Quard.CreateQuard(quardPSInit[2], TexPSInit[2], 0.0f);
+        for(int i = kenny.GetDataSize() - 1; i >= 0; i--)
+            m_Quard.CreateQuard(kenny.GetQuardPS(i), kenny.GetTexPS(i), 0.0f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
@@ -81,10 +71,7 @@ namespace box
         // glfwSetWindowPos(GetWindow(), 
         //     sin(j) * (m_MonitorSize.width - m_WinSize.width) / 2 + (m_MonitorSize.width - m_WinSize.width) / 2,
         //     cos(j) * (m_MonitorSize.height - m_WinSize.height) / 2 * (-1) + (m_MonitorSize.height - m_WinSize.height) / 2);
-        m_Quard.SetDegree(0, i);
-
-        i += 0.05f;
-        // j += 0.01f;
+        //m_Quard.SetDegree(0, i);
     }
 
     void SandKenny::OnRender()

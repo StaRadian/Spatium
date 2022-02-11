@@ -21,9 +21,8 @@ namespace box
         std::unique_ptr<spat::Shader> m_Shader;
         std::unique_ptr<spat::Texture> m_Main_charactersTex;
         spat::TexQuard2D m_Quard;
+
         
-        float i = 0.0f;
-        float j = 0;
     
     public:
         SandKenny();
